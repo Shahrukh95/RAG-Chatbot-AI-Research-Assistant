@@ -86,7 +86,7 @@ FastAPI Backend
 ```
 rag-pdf-chatbot/
 ├── backend/
-│   ├── main.py          # FastAPI application
+│   ├── fastapi.py       # FastAPI application
 │   └── data/uploads/    # Uploaded PDF files
 ├── frontend/
 │   └── streamlit_app.py # Streamlit UI
