@@ -5,15 +5,10 @@ import requests
 # BACKEND URL
 BACKEND_URL = "http://localhost:8000"
 
-
-
-# ---
-
 # INTRO TAGS
 st.title("RAG Chatbot")
 st.text("Upload files and chat with all of them")
 st.divider()
-
 
 # FILE UPLOADER
 uploaded_files = st.file_uploader(label="Upload a file", type=[],accept_multiple_files=True, help="Upload a PDF file, preferably research papers")
@@ -27,22 +22,13 @@ if uploaded_files:
         )
 
 
-    
     # SEND ALL FILES TO THE BACKEND
     response = requests.post(url=BACKEND_URL + "/ingest", files=all_files)
     st.write(response.json())
 
 
-# if uploaded_files:
-#     for uploaded_file in uploaded_files:
-#         file_name = uploaded_file.name
-#         # file_type = uploaded_file.type
 
-#         save_path = os.path.join(upload_folder, file_name)
-        
-#         with open(save_path, "wb") as f:
-#             f.write(uploaded_file.getbuffer())
-
+# CHAT SYSTEM
 
 # Initialize chat history
 if "messages" not in st.session_state:

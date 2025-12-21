@@ -27,6 +27,7 @@ This is a common real-world pattern used in enterprise AI systems.
 
 ### Planned Features
 - Extract text from uploaded PDFs
+- Extract image or printed text in addition to normal text (using OCR)
 - Split text into chunks for semantic search
 - Generate embeddings for each chunk
 - Store embeddings in a vector database (FAISS / Chroma)
