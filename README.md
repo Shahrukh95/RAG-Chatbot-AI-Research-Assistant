@@ -34,6 +34,7 @@ This is a common real-world pattern used in enterprise AI systems.
 - Use a Large Language Model (LLM) to generate answers
 - Display answers with document citations
 - Support multiple documents per session
+- If files have same name, compare and check bytes, then save
 
 ---
 
