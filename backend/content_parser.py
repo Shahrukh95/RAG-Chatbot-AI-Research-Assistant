@@ -28,7 +28,7 @@ def extract_text_and_images_by_page(pdf_path: str, start_page: int = None, end_p
 
     doc = pymupdf.open(pdf_path) # open the document
     filename = os.path.basename(pdf_path)
-    print(filename)
+    # print(filename)
     content = []
 
     num_pages = len(doc)
@@ -47,7 +47,7 @@ def extract_text_and_images_by_page(pdf_path: str, start_page: int = None, end_p
 
             image_list = page_doc.get_images()
             # print(image_list)
-            print_number_of_images(image_list=image_list, page_index=i)
+            # print_number_of_images(image_list=image_list, page_index=i)
             save_images(doc=doc, page_index=i, image_list=image_list, pdf_path=pdf_path, filename=filename)
             
         except Exception as e:

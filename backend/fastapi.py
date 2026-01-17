@@ -15,7 +15,6 @@ os.makedirs(upload_folder, exist_ok=True)
 @app.post("/ingest")
 async def save_file(files: list[UploadFile]):
     saved_files = []
-    texts_all_files = []
     for file in files:
         contents = await file.read()
 
@@ -36,10 +35,14 @@ async def save_file(files: list[UploadFile]):
             chunk_size = 100,
             chunk_overlap = 20
         )
-        texts = text_splitter.create_documents(extract_text_and_images_by_page(pdf_path=save_path))
-        # texts_all_files.append(texts)
+
+        pages = extract_text_and_images_by_page(pdf_path=save_path)
+        metadatas = [{"filename": filename, "page": i+1} for i in range(len(pages))]
+        chunked_text = text_splitter.create_documents(texts=pages, metadatas=metadatas)
+        # print(chunked_text[0])
 
 
-
-    return {"files-saved": saved_files, "output": texts}
+    # print(type(texts))
+    # print(len(texts))
+    return {"files-saved": saved_files, "output": chunked_text[-5:]}
 
