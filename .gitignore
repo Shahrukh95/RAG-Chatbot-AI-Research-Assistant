@@ -6,10 +6,12 @@ dist/
 wheels/
 *.egg-info
 
+.env
+
 # Virtual environments
 .venv
 
 # Data folder/files
-uploads/
+data/
 output_testing/
 

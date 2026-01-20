@@ -1,8 +1,9 @@
-from fastapi import FastAPI, UploadFile
 import os
 
+from fastapi import FastAPI, UploadFile
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from .content_parser import *
+from .embeddings import *
 
 app = FastAPI()
 
@@ -32,8 +33,8 @@ async def save_file(files: list[UploadFile]):
         # 2. Chunk Files
         text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
             model_name="gpt-4",
-            chunk_size = 100,
-            chunk_overlap = 20
+            chunk_size = 800,
+            chunk_overlap = 150
         )
 
         pages = extract_text_and_images_by_page(pdf_path=save_path)
@@ -41,8 +42,15 @@ async def save_file(files: list[UploadFile]):
         chunked_text = text_splitter.create_documents(texts=pages, metadatas=metadatas)
         # print(chunked_text[0])
 
+        # Create Embeddings
+        for chunk in chunked_text[-1:]:
+            embedding_response = get_embeddings(chunk.page_content)
+            print(f"Embedding type: {type(embedding_response["embedding"])}")
+            chunk.metadata["embeddings"] = embedding_response["embedding"]
+        # embedding = get_embeddings(chunked_text[10].page_content)
+
 
     # print(type(texts))
     # print(len(texts))
-    return {"files-saved": saved_files, "output": chunked_text[-5:]}
+    return {"files-saved": saved_files, "output": chunked_text[-1:]}
 
